@@ -32,4 +32,4 @@ async def joined(ctx, member: discord.Member):
  
 
 
-bot.run("tMTMwMjMxNTI2NjQzMjE3NjIwOA.GEh7Yv.34qMLKWmJGewzHIvO4OIKwWfefQGRm_-iKXiTo")
+bot.run("token")
