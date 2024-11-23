@@ -65,7 +65,7 @@ async def yazıtura(ctx):
         else:
             if cevap.strip():
                 await ctx.send(f"Böyle bir seçenek yok.")
-
+#not working
 @bot.command()
 async def ucaklarnapar(ctx):
     await ctx.send(f"Uçaklar tabii ki uçar, fuww fouw")
