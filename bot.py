@@ -3,6 +3,8 @@ import discord
 # Bu framework sayesinde, botumuzun belirli komutlara yanıt vermesini kolayca tanımlayabiliriz.
 from discord.ext import commands
 from bot_mantik import gen_pass
+import time
+import random
 
 intents = discord.Intents.default()
 intents.message_content = True # botun mesaj içeriğine erişimini aktif hale getiriyoruz.
@@ -29,7 +31,56 @@ async def pasw(ctx): # pasw adında bir komut tanımladık. ctx(context), komutu
 async def joined(ctx, member: discord.Member):
     """Says when a member joined."""
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
- 
 
+@bot.command()
+async def yazıtura(ctx):
+    soru = await ctx.send(f"Yazımı turamı?")
+    def Cevap(mesaj):
+        return mesaj.author == ctx.author and mesaj.channel == ctx.channel
+    cevap_mesajı = await bot.wait_for("message", check = Cevap)
+    cevap = cevap_mesajı.content.lower()
+    secim = random.randint(1,2)
+    if cevap == "$yazı" or cevap == "$tura":
+        await ctx.send(f"Parayı atıyorum.")
+        time.sleep(3)
+        await ctx.send(f"Attım.")
+        time.sleep(1)
+    if secim == 1:
+        if cevap == "$yazı":
+            await ctx.send(f"Doğru bildin.")
+        elif cevap == "$tura":
+            await ctx.send(f"Yanlış bildin.")
+        else:
+            if cevap.strip():
+                await ctx.send(f"Böyle bir seçenek yok.")
+    elif secim == 2:
+        if cevap == "$yazı" or cevap == "$tura":
+            with open("Resimler/Resim5.png","rb") as f:
+                picture = discord.File(f)
+            await ctx.send(file = picture)
+        if cevap == "$yazı":
+            await ctx.send(f"Yanlış bildin.")
+        elif cevap == "$tura":
+            await ctx.send(f"Doğru bildin.")
+        else:
+            if cevap.strip():
+                await ctx.send(f"Böyle bir seçenek yok.")
 
+@bot.command()
+async def ucaklarnapar(ctx):
+    await ctx.send(f"Uçaklar tabii ki uçar, fuww fouw")
+
+@bot.command()
+async def geri_donusum(ctx):
+    soru1 = await ctx.send(f"hangi tür(1. yeniden kullanılabilir malzemeler/ 2. yeniden kullanılarbilir malzemelerle ne yapabiliriz)?")
+    def Cevap(mesaj):
+        return mesaj.author == ctx.author and mesaj.channel == ctx.channel
+    cevap_mesajı = await bot.wait_for("message", check = Cevap)
+    cevap = cevap_mesajı.content.lower()
+    if cevap == "$1" or cevap == "$2":
+        if cevap == "$1":
+            await ctx.send("Platik, Kağıt, Metal, Cam ve Odun malzemeleri geri dönüştürülebilir")
+    elif cevap == "$2":
+        await ctx.send("Mesela platik bir şişeyle bi kalemlik veya saksı yapabilirsin.")
+    
 bot.run("token")
